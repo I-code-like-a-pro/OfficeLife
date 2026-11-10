@@ -3,45 +3,53 @@
 Simulated workdays at a Nigerian company. Students clock in, do real tasks, make decisions under pressure
 and earn a certificate that employers can verify.
 
+Built with React, TanStack Router (hash history) and Tailwind CSS v4.
+
+## Develop
+
+```
+npm install
+npm run dev        # http://localhost:5173
+npm run build      # type-check and production build into dist/
+npx vitest run     # end-to-end flow tests
+```
+
 ## Files
 
 ```
-index.html          the page shell (loads the files below)
-css/style.css       all styling, light and dark
-js/config.js        settings: Google client ID, AI on or off
-js/data.js          universities, roles, scenarios, mentors, sample data
-js/logic.js         scoring, rules-based reviewer, certificate verification
-js/app-core.js      layout, landing page, sign up and log in
-js/app-pages.js     dashboard, simulations, premium, employers, universities, profile
-js/app-work.js      workday engine, certificate, events
-api/review.js       optional AI reviewer (hides your token, falls back to built-in rules)
-brand/              logos (SVG and PNG) and the CEO signature used on certificates
-package.json        tells Vercel to treat api/review.js as a module
+index.html               Vite entry
+src/main.tsx             mounts the router
+src/router.tsx           routes, route guards, root layout
+src/index.css            design tokens (light and dark) exposed to Tailwind
+src/lib/                 logic (scoring, reviewer, certificates), store, config, types
+src/data/data.ts         universities, roles, scenarios, mentors, sample data
+src/components/          layout (header, footer, hero), ui primitives, icons, shared pieces
+src/routes/              one file per area: home, auth, student, premium, employers,
+                         universities, workday, certificate
+api/review.js            optional AI reviewer (hides your token, falls back to built-in rules)
+public/brand/            logos (SVG and PNG) and the CEO signature used on certificates
 ```
 
 ## Deploy (free)
 
-1. Put these files in a GitHub repo (keep the `api` folder).
-2. On vercel.com choose **Add New, then Project**, pick the repo and press **Deploy**.
-3. The app already works with no AI. To switch the AI reviewer on, open the project in Vercel,
-   go to **Settings, then Environment Variables**, add `HF_TOKEN` with your Hugging Face token
-   (permission: "Make calls to Inference Providers"), then **Redeploy**.
+1. Push the repo to GitHub.
+2. On vercel.com choose **Add New, then Project**, pick the repo. Vercel detects Vite and builds it.
+3. The app works with no AI. To switch the AI reviewer on, go to **Settings, then Environment Variables**,
+   add `HF_TOKEN` with your Hugging Face token (permission: "Make calls to Inference Providers"), then **Redeploy**.
 4. Optional: add `HF_MODEL` to change the model. Default is `Qwen/Qwen3-VL-8B-Instruct`.
 
 Never paste the token into any file.
 
 ## Real Google sign-in (optional)
 
-1. In Google Cloud Console create an OAuth client ID (type: Web) and add your site URL as an authorised origin.
-2. In `js/config.js`, set `googleClientId: "YOUR_ID.apps.googleusercontent.com"`.
-
-Until then the Google button runs in demo mode.
+Create a Web OAuth client ID in Google Cloud Console, add your site URL as an authorised origin, and set
+`VITE_GOOGLE_CLIENT_ID` at build time. Without it the Google button runs in demo mode.
 
 ## What is real and what is demo
 
-Real in this build: clock-in logic, all scenarios, the rules-based reviewer, PDF and Word text reading,
-certificate with QR code and tamper-check link, print to PDF, LinkedIn add link, CSV report.
+Real: clock-in logic, all scenarios, the rules-based reviewer, PDF and Word text reading, certificate with QR
+code and tamper-check link, print to PDF, LinkedIn add link, CSV report.
 
-Demo in this build: accounts live on the user's device, Paystack payment, mentor booking, employer and
-university dashboards use sample data. Production needs a database (for example Supabase) for accounts,
-signed certificates and real dashboards.
+Demo: accounts live on the user's device, Paystack payment, mentor booking, employer and university dashboards
+use sample data. The certificate check is not secure against forgery; production needs a database (for example
+Supabase) for accounts, signed certificates and real dashboards.
