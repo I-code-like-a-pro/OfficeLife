@@ -78,7 +78,7 @@ export function UniField({ id, value, onChange, err }: { id: string; value: stri
           }} />
         {open && (
           <div id={id + "-list"} role="listbox"
-            className="absolute left-0 right-0 top-full mt-1 bg-surface border border-line rounded-[10px] z-15 max-h-[280px] overflow-auto shadow-[0_8px_24px_rgba(0,0,0,.18)]">
+            className="absolute left-0 right-0 top-full mt-1 bg-surface border border-line rounded-[10px] z-15 max-h-[280px] overflow-auto [box-shadow:0_8px_24px_rgba(0,0,0,.18)]">
             {res.length === 0
               ? <button type="button" disabled className="block w-full text-left px-3.5 py-[11px] text-[15px]">No match. Choose "Other Nigerian university".</button>
               : res.map(u => (

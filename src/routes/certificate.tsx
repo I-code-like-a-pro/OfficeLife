@@ -48,7 +48,7 @@ function CertificateView({ p, code, link, mine, evidence }: {
   return (
     <>
       <div id="certpaper"
-        className="[--ink:#0F1114] [--ink2:#5B6780] [--line:#DAE1ED] [--blue:#0056D2] [--blue-soft:#E5F0FF] bg-white text-[#0F1114] border border-[#DAE1ED] rounded-md px-5 py-[30px] text-center relative shadow-[0_2px_10px_rgba(15,17,20,.12)] before:content-[''] before:absolute before:inset-2 before:border before:border-[#DAE1ED] before:rounded-[3px] before:pointer-events-none">
+        className="[--ink:#0F1114] [--ink2:#5B6780] [--line:#DAE1ED] [--blue:#0056D2] [--blue-soft:#E5F0FF] bg-white text-[#0F1114] border border-[#DAE1ED] rounded-md px-5 py-[30px] text-center relative [box-shadow:0_2px_10px_rgba(15,17,20,.12)] before:content-[''] before:absolute before:inset-2 before:border before:border-[#DAE1ED] before:rounded-[3px] before:pointer-events-none">
         <Brand size={30} text="text-[22px]" className="justify-center mb-4" />
         <div className={kicker}>Career Simulation Certificate</div>
         <div className="font-serif text-[34px] leading-[1.15] mt-2 mb-3 font-semibold [overflow-wrap:anywhere]">{p.n}</div>
@@ -93,7 +93,7 @@ function CertificateView({ p, code, link, mine, evidence }: {
           {DIM_KEYS.map(k => (
             <div key={k} className={skillCls}>
               <div className="flex justify-between font-semibold"><span>{DIM_LABELS[k]}</span><span>{ps.dims[k]}%</span></div>
-              <div className="h-2 rounded-full bg-chip overflow-hidden flex-1"><i className="block h-full rounded-full bg-blue" style={{ width: ps.dims[k] + "%" }} /></div>
+              <div className="h-2 rounded-[99px] bg-chip overflow-hidden flex-1"><i className="block h-full rounded-[99px] bg-blue" style={{ width: ps.dims[k] + "%" }} /></div>
               <p className="text-[14px] text-ink2">{dimEvidence(k, pl, sc)}</p>
             </div>
           ))}

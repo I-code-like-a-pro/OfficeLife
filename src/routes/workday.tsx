@@ -640,7 +640,7 @@ export function Work() {
           </div>
           <div className="flex items-center gap-2 pb-2 text-[12px] text-ink2">
             <span>9 AM</span>
-            <div className="h-2 rounded-full bg-chip overflow-hidden flex-1"><i className="block h-full rounded-full bg-blue" style={{ width: clamp((clock - 540) / 480 * 100, 0, 100) + "%" }} /></div>
+            <div className="h-2 rounded-[99px] bg-chip overflow-hidden flex-1"><i className="block h-full rounded-[99px] bg-blue" style={{ width: clamp((clock - 540) / 480 * 100, 0, 100) + "%" }} /></div>
             <span>5 PM</span>
           </div>
         </div>
