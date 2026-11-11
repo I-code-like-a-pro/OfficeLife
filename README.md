@@ -35,10 +35,10 @@ public/brand/            logos (SVG and PNG) and the CEO signature used on certi
 1. Push the repo to GitHub.
 2. On vercel.com choose **Add New, then Project**, pick the repo. Vercel detects Vite and builds it.
 3. The app works with no AI. To switch the AI reviewer on, go to **Settings, then Environment Variables**,
-   add `HF_TOKEN` with your Hugging Face token (permission: "Make calls to Inference Providers"), then **Redeploy**.
-4. Optional: add `HF_MODEL` to change the model. Default is `Qwen/Qwen3-VL-8B-Instruct`.
+   add `GROQ_API_KEY` with an API key from console.groq.com, then **Redeploy**.
+4. Optional: add `GROQ_MODEL` to change the model. Default is `qwen/qwen3.8-27b` (it must accept images).
 
-Never paste the token into any file.
+Never paste the API key into any file.
 
 ## Real Google sign-in (optional)
 
