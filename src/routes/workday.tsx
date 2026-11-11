@@ -364,7 +364,8 @@ function TaskCard({ st, onDone }: { st: TaskStep; onDone: (r: TaskResult) => voi
   const ta = cx(inputCls, "min-h-[110px] mt-3 py-2.5 px-3 resize-y min-h-[110px]");
   const link = "text-blue underline font-semibold text-[14px]";
   const fbBase = "rounded-[10px] p-3.5 mt-3.5 [&_p]:text-[15px] [&_p]:text-ink [&_li]:text-[15px] [&_li]:text-ink";
-  const how = (m: Method) => <p className="!text-[12px] !text-ink2 mt-2.5">{methodLabel(m)}</p>;
+  // The original reused the landing page's .how grid class here, so this caption sits in a quarter-width column on wide screens. Kept as is.
+  const how = (m: Method) => <p className="!text-[12px] !text-ink2 mt-2.5 grid gap-3 m720:grid-cols-4">{methodLabel(m)}</p>;
 
   let body: ReactNode = null;
   if (phase.k === "pick") body = (
@@ -376,7 +377,7 @@ function TaskCard({ st, onDone }: { st: TaskStep; onDone: (r: TaskResult) => voi
       <div className={cx(upl, "mt-2")}>
         <button className={link} onClick={() => void submit({ name: st.sampleName, text: attempt.current === 0 ? st.sampleBad : st.sampleGood })}>Use a sample file (demo)</button>
       </div>
-      <p className="text-[12px] text-ink2 mt-2">PDF, Word, text, PNG or JPG</p>
+      <p className="text-[15px] text-ink2 mt-2">PDF, Word, text, PNG or JPG</p>
     </>
   );
   else if (phase.k === "edit") body = (
@@ -402,7 +403,7 @@ function TaskCard({ st, onDone }: { st: TaskStep; onDone: (r: TaskResult) => voi
   else if (phase.k === "note") body = (
     <>
       {fileChip(phase.sub.name)}
-      <p className="text-[14px] mt-3">We cannot read inside this file right now. Add 2 or 3 lines describing what it shows and what you did, and we will review your note.</p>
+      <p className="text-[15px] text-ink2 mt-3">We cannot read inside this file right now. Add 2 or 3 lines describing what it shows and what you did, and we will review your note.</p>
       <textarea id="note" className={ta} value={note} onChange={e => setNote(e.target.value)} placeholder="Describe your work" />
       <div className={upl}>
         <Button onClick={() => {
