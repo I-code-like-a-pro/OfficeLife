@@ -29,7 +29,7 @@ function useGoogleSignIn() {
         client_id: CONFIG.googleClientId,
         callback: (resp: { credential: string }) => {
           const p = JSON.parse(b64d(resp.credential.split(".")[1])) as { name?: string; email?: string };
-          setState({ googlePrefill: { name: p.name || "", email: p.email || "" } });
+          setState({ googlePrefill: { name: p.name|| "", email: p.email || "" } });
           const known = getState().accounts[(p.email || "").toLowerCase()];
           if (known) { setState({ user: known }); go("/dashboard"); } else go("/signup");
         }
