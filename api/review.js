@@ -1,8 +1,8 @@
 // api/review.js  (Vercel serverless function)
-// Your token lives in an environment variable called HF_TOKEN. Never write it in this file.
+// Your Groq API key lives in an environment variable called GROQ_API_KEY. Never write it in this file.
 
-const MODEL = process.env.HF_MODEL || "Qwen/Qwen3-VL-8B-Instruct"; // change in Vercel settings if it ever disappears
-const ENDPOINT = "https://router.huggingface.co/v1/chat/completions";
+const MODEL = process.env.GROQ_MODEL || "qwen/qwen3.8-27b"; // vision model on Groq; change in Vercel settings if it ever disappears
+const ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
 
 // ---------- scripted fallback (works with no AI) ----------
 function fallbackReview({ rubric = [], text = "", fileName = "" }) {
@@ -43,14 +43,15 @@ async function askModel({ task, rubric, text, imageDataUrl }) {
   const res = await fetch(ENDPOINT, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${process.env.HF_TOKEN}`,
+      Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
       model: MODEL,
       messages: [{ role: "user", content }],
       max_tokens: 300,
-      temperature: 0.2
+      temperature: 0.2,
+      response_format: { type: "json_object" }
     })
   });
   if (!res.ok) throw new Error(`Model error ${res.status}`);
@@ -79,7 +80,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    if (!process.env.HF_TOKEN) throw new Error("No token set");
+    if (!process.env.GROQ_API_KEY) throw new Error("No API key set");
     const result = await Promise.race([
       askModel({ task, rubric, text, imageDataUrl }),
       new Promise((_, rej) => setTimeout(() => rej(new Error("Timeout")), 25000))
